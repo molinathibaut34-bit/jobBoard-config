@@ -2,16 +2,18 @@ services:
   postgres:
     image: postgres:16-alpine
     container_name: jobboard-postgres
+    env_file:
+      - .env
     environment:
-      POSTGRES_DB: jobboard
-      POSTGRES_USER: admin_jobboard_user
-      POSTGRES_PASSWORD: admin_jobboard_password
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "5434:5432"
+      - "${POSTGRES_PORT:-5434}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U admin_jobboard_user -d jobboard"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -21,14 +23,16 @@ services:
   minio:
     image: bitnamilegacy/minio:latest
     container_name: jobboard-minio
+    env_file:
+      - .env
     environment:
-      MINIO_ROOT_USER: minioadmin
-      MINIO_ROOT_PASSWORD: minioadmin
-      MINIO_DEFAULT_BUCKETS: jobboard-photos:download
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+      MINIO_DEFAULT_BUCKETS: ${MINIO_BUCKET:-jobboard-photos}:download
       MINIO_BROWSER: "on"
       MINIO_API_PORT_NUMBER: "9000"
       MINIO_CONSOLE_PORT_NUMBER: "9001"
-      MINIO_SERVER_URL: http://localhost:9000
+      MINIO_SERVER_URL: ${MINIO_PUBLIC_BASE_URL:-http://localhost:9000}
       MINIO_BROWSER_REDIRECT_URL: http://localhost:9001
     ports:
       - "9000:9000"
