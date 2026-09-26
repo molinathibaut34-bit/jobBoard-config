@@ -84,6 +84,11 @@ try {
   if ($emailUser) { dotnet user-secrets set "Email:Smtp:Username" $emailUser --project $apiProject | Out-Null }
   if ($emailPass) { dotnet user-secrets set "Email:Smtp:Password" $emailPass --project $apiProject | Out-Null }
 
+  $appFrontend = Get-DotEnvValue $envFile "App__FrontendBaseUrl"
+  $appResetMinutes = Get-DotEnvValue $envFile "App__PasswordResetTokenMinutes"
+  if ($appFrontend) { dotnet user-secrets set "App:FrontendBaseUrl" $appFrontend --project $apiProject | Out-Null }
+  if ($appResetMinutes) { dotnet user-secrets set "App:PasswordResetTokenMinutes" $appResetMinutes --project $apiProject | Out-Null }
+
   Write-Host "User Secrets synchronized from .env"
 } finally {
   Pop-Location
