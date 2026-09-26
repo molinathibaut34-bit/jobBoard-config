@@ -1,0 +1,10 @@
+{
+  "name": "jobboard",
+  "private": true,
+  "scripts": {
+    "dev": "npx --yes concurrently -k -n back,front -c cyan,magenta \"npm run dev:back\" \"npm run dev:front\"",
+    "dev:back": "dotnet run --project ./back/jobBoard-Api/jobBoard-Api/jobBoard-Api.csproj --launch-profile http",
+    "dev:front": "npm --prefix ./front start",
+    "dev:docker": "docker compose up -d"
+  }
+}
