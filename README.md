@@ -33,3 +33,5 @@ npm run dev
 ```
 
 Documentation secrets : [ENV.md](./ENV.md).
+
+Services locaux : PostgreSQL, MinIO (API `:9000`, console `:9001`), Mailpit (SMTP `:1025`, UI http://localhost:8025).

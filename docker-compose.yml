@@ -1,3 +1,5 @@
+name: jobboard
+
 services:
   postgres:
     image: postgres:16-alpine
@@ -48,10 +50,37 @@ services:
     networks:
       - jobboard-network
 
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: jobboard-mailpit
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      MP_MAX_MESSAGES: ${MAILPIT_MAX_MESSAGES:-5000}
+      MP_DATABASE: /data/mailpit.db
+      MP_SMTP_AUTH_ACCEPT_ANY: "1"
+      MP_SMTP_AUTH_ALLOW_INSECURE: "1"
+    ports:
+      - "127.0.0.1:${MAILPIT_UI_PORT:-8025}:8025"
+      - "127.0.0.1:${MAILPIT_SMTP_PORT:-1025}:1025"
+    volumes:
+      - mailpit_data:/data
+    healthcheck:
+      test: ["CMD", "/mailpit", "readyz"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - jobboard-network
+
 volumes:
   postgres_data:
     driver: local
   minio_data:
+    driver: local
+  mailpit_data:
     driver: local
 
 networks:
