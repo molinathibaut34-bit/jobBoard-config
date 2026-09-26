@@ -88,6 +88,15 @@ setSecret("Minio:Endpoint", minioEndpoint);
 setSecret("Minio:BucketName", minioBucket);
 setSecret("Minio:PublicBaseUrl", minioPublic);
 
+setSecret("Email:Provider", getenv(envFile, "Email__Provider"));
+setSecret("Email:From", getenv(envFile, "Email__From"));
+setSecret("Email:FromName", getenv(envFile, "Email__FromName"));
+setSecret("Email:Smtp:Host", getenv(envFile, "Email__Smtp__Host"));
+setSecret("Email:Smtp:Port", getenv(envFile, "Email__Smtp__Port"));
+setSecret("Email:Smtp:UseSsl", getenv(envFile, "Email__Smtp__UseSsl"));
+setSecret("Email:Smtp:Username", getenv(envFile, "Email__Smtp__Username"));
+setSecret("Email:Smtp:Password", getenv(envFile, "Email__Smtp__Password"));
+
 console.log("User Secrets synchronized from .env");
 console.log(
   `Done. Start infra with: npm run dev:docker  (from monorepo root or config/)`

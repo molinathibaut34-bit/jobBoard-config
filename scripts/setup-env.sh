@@ -60,5 +60,22 @@ fi
 [[ -n "${MINIO_BUCKET}" ]] && dotnet user-secrets set "Minio:BucketName" "${MINIO_BUCKET}" --project "${API_PROJECT}" >/dev/null
 [[ -n "${MINIO_PUBLIC}" ]] && dotnet user-secrets set "Minio:PublicBaseUrl" "${MINIO_PUBLIC}" --project "${API_PROJECT}" >/dev/null
 
+EMAIL_PROVIDER="$(getenv Email__Provider)"
+EMAIL_FROM="$(getenv Email__From)"
+EMAIL_FROM_NAME="$(getenv Email__FromName)"
+EMAIL_HOST="$(getenv Email__Smtp__Host)"
+EMAIL_PORT="$(getenv Email__Smtp__Port)"
+EMAIL_SSL="$(getenv Email__Smtp__UseSsl)"
+EMAIL_USER="$(getenv Email__Smtp__Username)"
+EMAIL_PASS="$(getenv Email__Smtp__Password)"
+[[ -n "${EMAIL_PROVIDER}" ]] && dotnet user-secrets set "Email:Provider" "${EMAIL_PROVIDER}" --project "${API_PROJECT}" >/dev/null
+[[ -n "${EMAIL_FROM}" ]] && dotnet user-secrets set "Email:From" "${EMAIL_FROM}" --project "${API_PROJECT}" >/dev/null
+[[ -n "${EMAIL_FROM_NAME}" ]] && dotnet user-secrets set "Email:FromName" "${EMAIL_FROM_NAME}" --project "${API_PROJECT}" >/dev/null
+[[ -n "${EMAIL_HOST}" ]] && dotnet user-secrets set "Email:Smtp:Host" "${EMAIL_HOST}" --project "${API_PROJECT}" >/dev/null
+[[ -n "${EMAIL_PORT}" ]] && dotnet user-secrets set "Email:Smtp:Port" "${EMAIL_PORT}" --project "${API_PROJECT}" >/dev/null
+[[ -n "${EMAIL_SSL}" ]] && dotnet user-secrets set "Email:Smtp:UseSsl" "${EMAIL_SSL}" --project "${API_PROJECT}" >/dev/null
+[[ -n "${EMAIL_USER}" ]] && dotnet user-secrets set "Email:Smtp:Username" "${EMAIL_USER}" --project "${API_PROJECT}" >/dev/null
+[[ -n "${EMAIL_PASS}" ]] && dotnet user-secrets set "Email:Smtp:Password" "${EMAIL_PASS}" --project "${API_PROJECT}" >/dev/null
+
 echo "User Secrets synchronized from .env"
 echo "Done. Start infra with: docker compose -f \"${CONFIG_DIR}/docker-compose.yml\" --env-file \"${ENV_FILE}\" up -d"

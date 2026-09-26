@@ -60,7 +60,11 @@ Le script `setup-env.ps1` / `setup-env.sh` synchronise aussi User Secrets depuis
 - `ConnectionStrings__DefaultConnection` (sinon dérivée de `POSTGRES_*`)
 - `Jwt__Key`, `Jwt__Issuer`, `Jwt__Audience`
 - `Minio__Endpoint`, `Minio__AccessKey`, `Minio__SecretKey`, `Minio__BucketName`, `Minio__PublicBaseUrl`
-- `Email__Provider`, `Email__From`, `Email__Smtp__Host`, `Email__Smtp__Port`, `Email__Smtp__UseSsl` (dev → Mailpit)
+- `Email__Provider`, `Email__From`, `Email__FromName`, `Email__Smtp__Host`, `Email__Smtp__Port`, `Email__Smtp__UseSsl`, `Email__Smtp__Username`, `Email__Smtp__Password`
+  - Dev (défaut) : `Provider=Smtp` → Mailpit (`localhost:1025`, UI http://localhost:8025)
+  - Sans envoi : `Provider=Logging`
+  - Prod (Brevo) : garder `Provider=Smtp`, changer host/port/credentials SMTP Brevo
+- `Seed__Admin__Email`, `Seed__Admin__Password`, `Seed__Admin__FirstName`, `Seed__Admin__Name` (compte Admin créé au démarrage)
 
 ## CI / GitHub Actions
 

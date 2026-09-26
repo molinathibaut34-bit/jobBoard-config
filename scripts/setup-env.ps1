@@ -66,6 +66,24 @@ try {
   if ($minioEndpoint) { dotnet user-secrets set "Minio:Endpoint" $minioEndpoint --project $apiProject | Out-Null }
   if ($minioBucket) { dotnet user-secrets set "Minio:BucketName" $minioBucket --project $apiProject | Out-Null }
   if ($minioPublic) { dotnet user-secrets set "Minio:PublicBaseUrl" $minioPublic --project $apiProject | Out-Null }
+
+  $emailProvider = Get-DotEnvValue $envFile "Email__Provider"
+  $emailFrom = Get-DotEnvValue $envFile "Email__From"
+  $emailFromName = Get-DotEnvValue $envFile "Email__FromName"
+  $emailHost = Get-DotEnvValue $envFile "Email__Smtp__Host"
+  $emailPort = Get-DotEnvValue $envFile "Email__Smtp__Port"
+  $emailSsl = Get-DotEnvValue $envFile "Email__Smtp__UseSsl"
+  $emailUser = Get-DotEnvValue $envFile "Email__Smtp__Username"
+  $emailPass = Get-DotEnvValue $envFile "Email__Smtp__Password"
+  if ($emailProvider) { dotnet user-secrets set "Email:Provider" $emailProvider --project $apiProject | Out-Null }
+  if ($emailFrom) { dotnet user-secrets set "Email:From" $emailFrom --project $apiProject | Out-Null }
+  if ($emailFromName) { dotnet user-secrets set "Email:FromName" $emailFromName --project $apiProject | Out-Null }
+  if ($emailHost) { dotnet user-secrets set "Email:Smtp:Host" $emailHost --project $apiProject | Out-Null }
+  if ($emailPort) { dotnet user-secrets set "Email:Smtp:Port" $emailPort --project $apiProject | Out-Null }
+  if ($emailSsl) { dotnet user-secrets set "Email:Smtp:UseSsl" $emailSsl --project $apiProject | Out-Null }
+  if ($emailUser) { dotnet user-secrets set "Email:Smtp:Username" $emailUser --project $apiProject | Out-Null }
+  if ($emailPass) { dotnet user-secrets set "Email:Smtp:Password" $emailPass --project $apiProject | Out-Null }
+
   Write-Host "User Secrets synchronized from .env"
 } finally {
   Pop-Location
