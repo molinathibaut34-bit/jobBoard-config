@@ -96,6 +96,8 @@ setSecret("Email:Smtp:Port", getenv(envFile, "Email__Smtp__Port"));
 setSecret("Email:Smtp:UseSsl", getenv(envFile, "Email__Smtp__UseSsl"));
 setSecret("Email:Smtp:Username", getenv(envFile, "Email__Smtp__Username"));
 setSecret("Email:Smtp:Password", getenv(envFile, "Email__Smtp__Password"));
+setSecret("App:FrontendBaseUrl", getenv(envFile, "App__FrontendBaseUrl"));
+setSecret("App:PasswordResetTokenMinutes", getenv(envFile, "App__PasswordResetTokenMinutes"));
 
 console.log("User Secrets synchronized from .env");
 console.log(

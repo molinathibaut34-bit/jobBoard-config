@@ -77,5 +77,10 @@ EMAIL_PASS="$(getenv Email__Smtp__Password)"
 [[ -n "${EMAIL_USER}" ]] && dotnet user-secrets set "Email:Smtp:Username" "${EMAIL_USER}" --project "${API_PROJECT}" >/dev/null
 [[ -n "${EMAIL_PASS}" ]] && dotnet user-secrets set "Email:Smtp:Password" "${EMAIL_PASS}" --project "${API_PROJECT}" >/dev/null
 
+APP_FRONTEND="$(getenv App__FrontendBaseUrl)"
+APP_RESET_MINUTES="$(getenv App__PasswordResetTokenMinutes)"
+[[ -n "${APP_FRONTEND}" ]] && dotnet user-secrets set "App:FrontendBaseUrl" "${APP_FRONTEND}" --project "${API_PROJECT}" >/dev/null
+[[ -n "${APP_RESET_MINUTES}" ]] && dotnet user-secrets set "App:PasswordResetTokenMinutes" "${APP_RESET_MINUTES}" --project "${API_PROJECT}" >/dev/null
+
 echo "User Secrets synchronized from .env"
 echo "Done. Start infra with: docker compose -f \"${CONFIG_DIR}/docker-compose.yml\" --env-file \"${ENV_FILE}\" up -d"

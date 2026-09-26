@@ -65,6 +65,7 @@ Le script `setup-env.ps1` / `setup-env.sh` synchronise aussi User Secrets depuis
   - Sans envoi : `Provider=Logging`
   - Prod (Brevo) : garder `Provider=Smtp`, changer host/port/credentials SMTP Brevo
 - `Seed__Admin__Email`, `Seed__Admin__Password`, `Seed__Admin__FirstName`, `Seed__Admin__Name` (compte Admin créé au démarrage)
+- `App__FrontendBaseUrl`, `App__PasswordResetTokenMinutes` (liens de réinitialisation de mot de passe)
 
 ## CI / GitHub Actions
 
