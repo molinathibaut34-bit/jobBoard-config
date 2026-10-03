@@ -4,7 +4,8 @@
   "description": "Infra locale JobBoard (Docker Compose, env, scripts) — à placer à côté de front/ et back/",
   "scripts": {
     "setup:env": "node ./scripts/setup-env.js",
-    "dev:docker": "docker compose -p jobboard --env-file .env up -d --remove-orphans",
+    "dev:docker": "node ./scripts/ensure-docker-up.js",
+    "dev:docker:up": "docker compose -p jobboard --env-file .env up -d --remove-orphans",
     "dev:docker:down": "docker compose -p jobboard --env-file .env down",
     "dev:back": "dotnet run --project ../back/jobBoard-Api/jobBoard-Api/jobBoard-Api.csproj --launch-profile http",
     "dev:front": "npm --prefix ../front start",
